@@ -1,0 +1,23 @@
+<div id="contenedor-login">
+    <form id="formulario">
+        <h4 id="titulo">Bienvenido!</h4>
+        <input type="email" class="txt-form" placeholder="Correo electrónico" required>
+
+        <!--Padre e hijo-->
+        <input type="{{mostrarPassword ? 'text' : 'password'}}" class="txt-form" placeholder="Contraseña" required>
+        <div id="contenedor-btn-pass">
+            <label for="chk-mostrar" style="color: #FFF; margin-right: 3%; margin-bottom: 15px;">Mostrar Contraseña</label>
+            <input type="checkbox" name="chk-mostrar" (change)="mostrarPassword = !mostrarPassword">
+        </div>
+
+
+        <button id="btn-login">Iniciar Sesion</button>
+        <p id="txt-o">O</p>
+        <i id="icono-fb" class="fa-brands fa-facebook"><p id="txt-fb">Entrar con Facebook</p></i>
+        <div style="display: flex; flex-direction: row; align-items: center; margin: 40px 0px;">
+            <p id="txt-fb">¿No tienes cuenta? </p>
+            <a id="registro" [routerLink]="['/registro']">Registrate</a>
+        </div>
+        
+    </form>
+</div>
