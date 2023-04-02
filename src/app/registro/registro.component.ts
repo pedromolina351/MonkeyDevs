@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
+  registro:boolean = true;
+  planes:boolean = false;
+
+  cambiar(){
+    this.registro = false;
+    this.planes = true;
+  }
 
 }

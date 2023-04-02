@@ -1,1 +1,37 @@
-<p>registro works!</p>
+<div id="contenedor-registro" *ngIf="registro">
+    <form id="formulario">
+        <h4 id="titulo">Registrate!</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="lbl-form block mb-2">Nombre</label>
+              <input type="text" class="txt-form form-input" placeholder="Nombre">
+            </div>
+            <div>
+                <label class="lbl-form block mb-2">Apellido</label>
+                <input type="text" class="txt-form form-input" placeholder="Apellido">
+            </div>
+            <div>
+                <label class="lbl-form block mb-2">Nombre de usuario</label>
+                <input type="text" class="txt-form form-input" placeholder="Nombre de usuario">
+              </div>
+            <div>
+              <label class="lbl-form block mb-2">Correo electrónico</label>
+              <input type="email" class="txt-form form-input" placeholder="Correo electrónico">
+            </div>
+
+            <div>
+              <label class="lbl-form block mb-2">Contraseña</label>
+              <input type="password" class="txt-form form-input" placeholder="Contraseña">
+            </div>
+            <div>
+              <label class="lbl-form block mb-2">Confirmar contraseña</label>
+              <input type="password" class="txt-form form-input" placeholder="Confirmar contraseña">
+            </div>
+        </div>
+        <button (click)="cambiar()" id="btn-siguiente" class="form-input">Siguiente</button>
+    </form>
+</div>
+
+<div id="contenedor-planes" *ngIf="planes">
+    <h4>Escoje tu plan</h4>
+</div>
