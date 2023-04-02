@@ -9,9 +9,11 @@ import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { LandingComponent } from './landing/landing.component';
 
 const appRoutes: Routes = [
-  {path: '', component: InicioComponent},
+  {path: 'home', component: InicioComponent},
+  {path: '', component: LandingComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'login', component: LoginComponent},
   {path: 'perfil', component: LoginComponent}
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RegistroComponent,
     InicioComponent,
-    PerfilComponent
+    PerfilComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
