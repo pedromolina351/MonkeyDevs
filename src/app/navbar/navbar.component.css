@@ -39,3 +39,10 @@
 #img-logo:hover {
     cursor: pointer;
 }
+#btn-perfil {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background-image: url('../../assets/img/user.svg');
+    background-color: white;
+}
