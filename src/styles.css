@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* styles.css */
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/material';
 /* You can add global styles to this file, and also import other style files */
 body {
     margin: 0;

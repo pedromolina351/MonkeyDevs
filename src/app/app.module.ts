@@ -11,6 +11,9 @@ import { InicioComponent } from './inicio/inicio.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { LandingComponent } from './landing/landing.component';
 
+import { FormsModule } from '@angular/forms';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+
 const appRoutes: Routes = [
   {path: 'home', component: InicioComponent},
   {path: '', component: LandingComponent},
@@ -32,7 +35,9 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    CodemirrorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
