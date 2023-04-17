@@ -1,0 +1,96 @@
+#contenedor-registro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #D9D9D9;
+    border-radius: 15px;
+    min-width: 700px;
+    min-height: 500px;
+    background-color: #292B35;
+}
+#formulario {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 25px;
+}
+.lbl-form {
+    color:#FFE3C1;
+    margin-bottom: 0;
+}
+.txt-form {
+    outline: 0;
+    border: 0;
+    background-color: #797B81;
+    margin: 10px 0px;
+    border-radius: 6px;
+    padding: 17px;
+    color: #ffffff;
+    font-size: 1.1em;
+    width: 100%;
+}
+#titulo {
+    margin: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+#btn-siguiente {
+    background-color: #FFC278;
+    border: 0;
+    border-radius: 6px;
+    padding: 5px;
+    margin: 10px 0px;
+    width: 125px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.1em;
+    align-self: end;
+}
+#contenedor-planes {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #D9D9D9;
+    border-radius: 15px;
+    min-width: 800px;
+    min-height: 500px;
+    background-color: #292B35;
+    padding: 10px;
+}
+#div-planes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    color: #FFE3C1;
+}
+.plan {
+    display: flex;
+    flex-direction: column;
+    background-color: #797B81;
+    margin: 10px;
+    border-radius: 6px;
+    padding: 10px;
+    height: 100%;
+}
+.titulo-plan {
+    align-self: center;
+    margin: 15px 0px 30px;
+}
+.usd-mes {
+    font-size: 0.8rem;
+    color: #aeb1be;
+}
+#btn-finalizar {
+    background-color: #FFC278;
+    margin: 10px;
+    margin-top: 40px;
+    width: 115px;
+    height: 35px;
+    border-radius: 4px;
+}
+.seleccionable {
+    cursor: pointer;
+}
+.seleccionada {
+    border: 3px solid #FFC278;
+}

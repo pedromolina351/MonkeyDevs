@@ -1,0 +1,65 @@
+<div id="contenedor-registro" *ngIf="registro">
+    <form id="formulario">
+        <h4 id="titulo">Registrate!</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="lbl-form block mb-2">Nombre</label>
+              <input type="text" class="txt-form form-input" placeholder="Nombre" required>
+            </div>
+            <div>
+                <label class="lbl-form block mb-2">Apellido</label>
+                <input type="text" class="txt-form form-input" placeholder="Apellido" required>
+            </div>
+            <div>
+                <label class="lbl-form block mb-2">Nombre de usuario</label>
+                <input type="text" class="txt-form form-input" placeholder="Nombre de usuario" required>
+              </div>
+            <div>
+              <label class="lbl-form block mb-2">Correo electrónico</label>
+              <input type="email" class="txt-form form-input" placeholder="Correo electrónico" required>
+            </div>
+
+            <div>
+              <label class="lbl-form block mb-2">Contraseña</label>
+              <input type="password" class="txt-form form-input" placeholder="Contraseña" required>
+            </div>
+            <div>
+              <label class="lbl-form block mb-2">Confirmar contraseña</label>
+              <input type="password" class="txt-form form-input" placeholder="Confirmar contraseña" required>
+            </div>
+        </div>
+        <button (click)="cambiarPagina()" id="btn-siguiente" class="form-input">Siguiente</button>
+    </form>
+</div>
+
+<div id="contenedor-planes" *ngIf="planes">
+  <h4>Escoje el plan mas adecuado a tus necesidades</h4>
+  <div id="div-planes">
+    <div (click)="cambiarPlan(1)" [ngClass]="{'seleccionable': true, 'seleccionada': planSeleccionado === 1}" class="plan">
+      <b class="titulo-plan">Baby Monkey</b>
+      <span>1 proyecto colaborativo</span>
+      <span>3 proyectos personales</span>
+      <b style="margin-top: 30px;">Gratis</b>
+      <span class="usd-mes">USD/mes</span>
+    </div>
+    <div (click)="cambiarPlan(2)" [ngClass]="{'seleccionable': true, 'seleccionada': planSeleccionado === 2}" class="plan">
+      <b class="titulo-plan">Monkey Junior</b>
+      <span>5 proyecto colaborativo</span>
+      <span>5 proyectos personales</span>
+      <b style="margin-top: 30px;">$ 25.07</b>
+      <span class="usd-mes">USD/mes</span>
+    </div>
+    <div (click)="cambiarPlan(3)" [ngClass]="{'seleccionable':true,'seleccionada': planSeleccionado === 3}" class="plan">
+      <b class="titulo-plan">Monkey Pro</b>
+      <span>Proyectos colaborativos y</span>
+      <span>personales ilimitados</span>
+      <b style="margin-top: 30px;">$ 52.33</b>
+      <span class="usd-mes">USD/mes</span>
+    </div>
+  </div>
+  <div style="display: flex;justify-content: flex-end;">
+    <button id="btn-finalizar" type="submit" [routerLink]="['/home']">Finalizar</button>
+  </div>
+  </div>
+
+ 
