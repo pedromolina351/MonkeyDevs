@@ -87,9 +87,16 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/codemirror/lib/codemirror.css",
+              "node_modules/codemirror/theme/material.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/codemirror/lib/codemirror.js",
+              "node_modules/codemirror/mode/htmlmixed/htmlmixed.js",
+              "node_modules/codemirror/mode/css/css.js",
+              "node_modules/codemirror/mode/javascript/javascript.js"
+            ]
           }
         }
       }

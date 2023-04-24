@@ -23,3 +23,9 @@
 .pantallas div {
     border: solid 1px #fff;
 }
+
+.miIframe {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }

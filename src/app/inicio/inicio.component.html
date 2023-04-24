@@ -1,41 +1,59 @@
-
 <div class="area-trabajo">
-    <div class="menu-lateral">
-        Menu
+  <div class="menu-lateral">
+      Menu
+  </div>
+  <div class="pantallas">
+      <div>
+        <ngx-codemirror
+        [options]="{
+          lineNumbers: true,
+          theme: 'material',
+          mode: 'markdown',
+          scrollbarStyle: 'native'
+        }"
+        [(ngModel)]="htmlCode"
+      ></ngx-codemirror>
     </div>
-    <div class="pantallas">
-        <div>
-            <ngx-codemirror
-                [options]="{
-                  lineNumbers: true,
-                  theme: 'material',
-                  mode: 'markdown'
-                }"
-            ></ngx-codemirror>
-        </div>
-        <div>
-            <ngx-codemirror
-            [options]="{
-              lineNumbers: true,
-              theme: 'material',
-              mode: 'css'
-            }"
-            ></ngx-codemirror>
-        </div>
-        <div>
-            <ngx-codemirror
-            [options]="{
-              lineNumbers: true,
-              theme: 'material',
-              mode: 'javascript'
-            }"
-            ></ngx-codemirror>
-        </div>
-        <div>
-            Salida
-        </div>
+    <div>
+      <ngx-codemirror
+        [options]="{
+          lineNumbers: true,
+          theme: 'material',
+          mode: 'css'
+        }"
+        [(ngModel)]="cssCode"
+      ></ngx-codemirror>
     </div>
+    <div>
+      <ngx-codemirror
+        [options]="{
+          lineNumbers: true,
+          theme: 'material',
+          mode: 'javascript'
+        }"
+        [(ngModel)]="jsCode"
+      ></ngx-codemirror>
+    </div>
+  
+    <div>
+      <button (click)="generarSalida($event)">Generar Salida</button>
+      <iframe class="miIframe" id="salida" src="" frameborder="0">Salida</iframe>
+  </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
