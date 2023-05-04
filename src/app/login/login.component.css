@@ -1,3 +1,7 @@
+.error{
+    color: rgb(253, 186, 186);
+}
+
 #contenedor-login {
     position: absolute;
     top: 50%;

@@ -10,9 +10,12 @@ import { RegistroComponent } from './registro/registro.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { LandingComponent } from './landing/landing.component';
+import { HttpClientModule } from '@angular/common/http'
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
+
 
 const appRoutes: Routes = [
   {path: 'home', component: InicioComponent},
@@ -30,7 +33,8 @@ const appRoutes: Routes = [
     RegistroComponent,
     InicioComponent,
     PerfilComponent,
-    LandingComponent
+    LandingComponent,
+    LoginNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     CodemirrorModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

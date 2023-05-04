@@ -1,5 +1,5 @@
 <div id="contenedor-registro" *ngIf="registro">
-    <form id="formulario">
+    <form id="formulario" [formGroup]="formLogin" >
         <h4 id="titulo">Registrate!</h4>
         <div class="grid grid-cols-2 gap-4">
             <div>
@@ -16,19 +16,20 @@
               </div>
             <div>
               <label class="lbl-form block mb-2">Correo electrónico</label>
-              <input type="email" class="txt-form form-input" placeholder="Correo electrónico" required>
+              <input  formControlName="email" type="email" class="txt-form form-input" placeholder="Correo electrónico" required>
             </div>
 
             <div>
               <label class="lbl-form block mb-2">Contraseña</label>
-              <input type="password" class="txt-form form-input" placeholder="Contraseña" required>
+              <input  formControlName="password" type="password" class="txt-form form-input" placeholder="Contraseña" required>
             </div>
             <div>
               <label class="lbl-form block mb-2">Confirmar contraseña</label>
               <input type="password" class="txt-form form-input" placeholder="Confirmar contraseña" required>
             </div>
         </div>
-        <button (click)="cambiarPagina()" id="btn-siguiente" class="form-input">Siguiente</button>
+        <button type="button" [disabled]="!formLogin.valid" (click)="cambiarPagina()" id="btn-siguiente" class="form-input">Siguiente</button>
+
     </form>
 </div>
 
@@ -58,7 +59,7 @@
     </div>
   </div>
   <div style="display: flex;justify-content: flex-end;">
-    <button id="btn-finalizar" type="submit" [routerLink]="['/home']">Finalizar</button>
+    <button id="btn-finalizar" type="button" [disabled]="planSeleccionado===0">Finalizar</button>
   </div>
   </div>
 

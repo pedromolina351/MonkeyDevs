@@ -1,0 +1,48 @@
+:root {
+    --color-texto: #18191F;
+}
+
+.navbar {
+    background-color: #474A57;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 35px;
+}
+
+#contenedor-botones {
+    display: flex;
+    align-items: center;
+}
+
+#contenedor-botones button {
+    border: 0;
+    border-radius: 4px;
+    width: 115px;
+    margin: 10px;
+    height: 30px;
+    display: flow-root;
+}
+#contenedor-botones button:hover {
+    cursor: pointer !important;;
+}
+#btn-login {
+    background-color: #FFC278;
+}
+#btn-registrarse {
+    background-color: #F4F5F7;
+    color: #474A57;
+}
+#img-logo {
+    width: 185px;
+}
+#img-logo:hover {
+    cursor: pointer;
+}
+#btn-perfil {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background-image: url('../../assets/img/user.svg');
+    background-color: white;
+}

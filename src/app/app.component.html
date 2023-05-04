@@ -1,5 +1,11 @@
-<app-navbar></app-navbar>
-<div class="container">
+<ng-container *ngIf="!isLoginOrRegister">
+    <app-navbar></app-navbar>
+  </ng-container>
+  
+  <ng-container *ngIf="isLoginOrRegister">
+    <app-login-navbar></app-login-navbar>
+  </ng-container>
+  
+  <div class="container">
     <router-outlet></router-outlet>
-</div>
-
+  </div>
