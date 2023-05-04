@@ -1,56 +1,75 @@
 <div id="contenedor-registro" *ngIf="registro">
-    <form id="formulario" [formGroup]="formLogin" >
-        <h4 id="titulo">Registrate!</h4>
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="lbl-form block mb-2">Nombre</label>
-              <input type="text" class="txt-form form-input" placeholder="Nombre" required>
-            </div>
-            <div>
-                <label class="lbl-form block mb-2">Apellido</label>
-                <input type="text" class="txt-form form-input" placeholder="Apellido" required>
-            </div>
-            <div>
-                <label class="lbl-form block mb-2">Nombre de usuario</label>
-                <input type="text" class="txt-form form-input" placeholder="Nombre de usuario" required>
-              </div>
-            <div>
-              <label class="lbl-form block mb-2">Correo electrónico</label>
-              <input  formControlName="email" type="email" class="txt-form form-input" placeholder="Correo electrónico" required>
-            </div>
+  <form id="formulario" [formGroup]="formLogin">
+    <h4 id="titulo">Registrate!</h4>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="lbl-form block mb-2">Nombre</label>
+        <input formControlName="nombre" type="text" class="txt-form form-input" placeholder="Nombre" required>
+        <p *ngIf="nombre?.errors?.['required']" class="error">Campo obligatorio.</p>
+      </div>
 
-            <div>
-              <label class="lbl-form block mb-2">Contraseña</label>
-              <input  formControlName="password" type="password" class="txt-form form-input" placeholder="Contraseña" required>
-            </div>
-            <div>
-              <label class="lbl-form block mb-2">Confirmar contraseña</label>
-              <input type="password" class="txt-form form-input" placeholder="Confirmar contraseña" required>
-            </div>
-        </div>
-        <button type="button" [disabled]="!formLogin.valid" (click)="cambiarPagina()" id="btn-siguiente" class="form-input">Siguiente</button>
+      <div>
+        <label class="lbl-form block mb-2">Apellido</label>
+        <input formControlName="apellido" type="text" class="txt-form form-input" placeholder="Apellido" required>
+        <p *ngIf="apellido?.errors?.['required']" class="error">Campo obligatorio.</p>
+      </div>
 
-    </form>
+      <div>
+        <label class="lbl-form block mb-2">Nombre de usuario</label>
+        <input formControlName="usuario" type="text" class="txt-form form-input" placeholder="Nombre de usuario"
+          required>
+        <p *ngIf="usuario?.errors?.['required']" class="error">Campo obligatorio.</p>
+      </div>
+
+      <div>
+        <label class="lbl-form block mb-2">Correo electrónico</label>
+        <input formControlName="email" type="email" class="txt-form form-input" placeholder="Correo electrónico"
+          required>
+        <p *ngIf="email?.errors?.['email']" class="error">Introduzca un correo válido</p>
+      </div>
+
+      <div>
+        <label class="lbl-form block mb-2">Contraseña</label>
+        <input formControlName="password" type="password" class="txt-form form-input" placeholder="Contraseña" required>
+        <p *ngIf="password?.errors?.['minlength']" class="error">Debe contener al menos 4 caracteres.</p>
+      </div>
+
+      <div>
+        <label class="lbl-form block mb-2">Confirmar contraseña</label>
+        <input formControlName="confirmPassword" type="password" class="txt-form form-input"
+          placeholder="Confirmar contraseña" required
+          [ngClass]="{ 'invalid-form': !formLogin.valid && formLogin.errors?.['passwordMismatch'] }">
+        <p *ngIf="formLogin.errors?.['passwordMismatch']" class="error">Las contraseñas no coinciden.</p>
+      </div>
+    </div>
+
+    <button type="button" [disabled]="!formLogin.valid" [ngClass]="{'form-invalid':!formLogin.valid}"
+      (click)="cambiarPagina()" id="btn-siguiente" class="form-input">Siguiente</button>
+
+  </form>
 </div>
 
 <div id="contenedor-planes" *ngIf="planes">
   <h4>Escoje el plan mas adecuado a tus necesidades</h4>
   <div id="div-planes">
-    <div (click)="cambiarPlan(1)" [ngClass]="{'seleccionable': true, 'seleccionada': planSeleccionado === 1}" class="plan">
+    <div (click)="cambiarPlan(1)" [ngClass]="{'seleccionable': true, 'seleccionada': planSeleccionado === 1}"
+      class="plan">
       <b class="titulo-plan">Baby Monkey</b>
       <span>1 proyecto colaborativo</span>
       <span>3 proyectos personales</span>
       <b style="margin-top: 30px;">Gratis</b>
       <span class="usd-mes">USD/mes</span>
     </div>
-    <div (click)="cambiarPlan(2)" [ngClass]="{'seleccionable': true, 'seleccionada': planSeleccionado === 2}" class="plan">
+    <div (click)="cambiarPlan(2)" [ngClass]="{'seleccionable': true, 'seleccionada': planSeleccionado === 2}"
+      class="plan">
       <b class="titulo-plan">Monkey Junior</b>
       <span>5 proyecto colaborativo</span>
       <span>5 proyectos personales</span>
       <b style="margin-top: 30px;">$ 25.07</b>
       <span class="usd-mes">USD/mes</span>
     </div>
-    <div (click)="cambiarPlan(3)" [ngClass]="{'seleccionable':true,'seleccionada': planSeleccionado === 3}" class="plan">
+    <div (click)="cambiarPlan(3)" [ngClass]="{'seleccionable':true,'seleccionada': planSeleccionado === 3}"
+      class="plan">
       <b class="titulo-plan">Monkey Pro</b>
       <span>Proyectos colaborativos y</span>
       <span>personales ilimitados</span>
@@ -58,9 +77,13 @@
       <span class="usd-mes">USD/mes</span>
     </div>
   </div>
-  <div style="display: flex;justify-content: flex-end;">
-    <button id="btn-finalizar" type="button" [disabled]="planSeleccionado===0">Finalizar</button>
+  <div style="margin-top: 20px;">
+    <p *ngIf="errorUsuario" class="error">El nombre de usuario ingresado ya existe, prueba con otro</p>
+    <p *ngIf="errorCorreo" class="error">El correo ingresado ya existe, prueba con otro</p>
   </div>
+  <div style="display: flex;justify-content: space-between;">
+    <button id="btn-finalizar" type="button" (click)="cambiarPagina()">Anterior</button>
+    <button id="btn-finalizar" type="button" [disabled]="planSeleccionado===0"
+      [ngClass]="{'form-invalid':planSeleccionado==0}" (click)="crearUsuario()">Finalizar</button>
   </div>
-
- 
+</div>

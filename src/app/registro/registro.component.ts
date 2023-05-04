@@ -14,6 +14,8 @@ export class RegistroComponent {
   planSeleccionado: number = 0;
   formLogin!: FormGroup;
   public error: string = '';
+  errorUsuario: boolean = false;
+  errorCorreo: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,31 +24,53 @@ export class RegistroComponent {
 
   ngOnInit(): void {
     this.formLogin = this.formBuilder.group({
+      nombre: ['', [Validators.required]],
+      apellido: ['', [Validators.required]],
+      usuario: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]]
-    });
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(60)]],
+      confirmPassword: ['', [Validators.required]]
+    }, { validator: this.checkPasswords });
   }
 
-  crearUsuario(){
+  checkPasswords(formGroup: FormGroup) {
+    const password = formGroup?.get('password')?.value;
+    const confirmPassword = formGroup?.get('confirmPassword')?.value;
+
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
+  crearUsuario() {
     const data = {
-      email:this.email?.value,
-      password:this.password?.value
+      nombre: this.nombre?.value,
+      apellido: this.apellido?.value,
+      usuario: this.usuario?.value,
+      correo: this.email?.value,
+      password: this.password?.value,
+      plan: this.planSeleccionado
     }
-    this.usuariosService.registrarse(data).
-    subscribe(
+    this.usuariosService.registrarse(data).subscribe(
       res => {
-        //this.router.navigate(['/']);
+        this.router.navigate(['/login']);
         console.log(res);
       },
       error => {
-        console.log(error);
+        if (error.error.message === 'USUARIO_DUPLICADO') {
+          console.log('El usuario ya existe');
+          this.errorUsuario = true;
+        } else if (error.error.message === 'CORREO_DUPLICADO') {
+          console.log('El correo ya está en uso');
+          this.errorCorreo = true;
+        } else {
+          console.log('Otro error:', error);
+        }
       }
-    )
+    );
   }
 
   cambiarPagina() {
-    this.registro = false;
-    this.planes = true;
+    this.registro = !this.registro;
+    this.planes = !this.planes;
   }
 
   cambiarPlan(plan: number) {
@@ -58,6 +82,9 @@ export class RegistroComponent {
       }
     }
   }
+  get nombre() { return this.formLogin.get('nombre'); }
+  get apellido() { return this.formLogin.get('apellido'); }
+  get usuario() { return this.formLogin.get('usuario'); }
   get email() { return this.formLogin.get('email'); }
   get password() { return this.formLogin.get('password'); }
 

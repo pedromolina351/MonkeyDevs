@@ -1,3 +1,12 @@
+.form-invalid{
+    background-color: #b9ab99!important;
+    color: gray;
+}
+
+.error{
+    color: rgb(253, 186, 186);
+}
+
 #contenedor-registro {
     position: absolute;
     top: 50%;
