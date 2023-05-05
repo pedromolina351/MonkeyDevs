@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProyectoService } from '../services/proyecto.service';
+import { AuthService } from '../services/auth.services';
 
 @Component({
   selector: 'app-inicio',
@@ -10,7 +12,10 @@ export class InicioComponent {
   cssCode = '';
   jsCode = '';
 
-  constructor() { } 
+  constructor(
+    private proyectoService: ProyectoService,
+    private authService: AuthService
+    ) { }
 
   generarSalida(event: Event): void {
     console.log(this.htmlCode, this.cssCode, this.jsCode);
@@ -33,6 +38,28 @@ export class InicioComponent {
     iframeDoc!.open();
     iframeDoc!.write(head + body);
     iframeDoc!.close();
+  }
+
+
+
+  guardarProyecto() {
+    const tokenInfo = this.authService.getUserData();
+    const data = {
+      nombreProyecto: "Proyecto nuevo",
+      descripcion: "Este proyecto fue creado en el frontend",
+      archivoHTML: this.htmlCode,
+      archivoJS: this.jsCode,
+      archivoCSS: this.cssCode,
+      usuario: tokenInfo.id
+    }
+    this.proyectoService.crearProyecto(data).subscribe(
+      res => {
+        console.log(res);
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 }
 

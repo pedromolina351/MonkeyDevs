@@ -18,6 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
 import { UserGuardGuard } from './guards/user-guard.guard';
 import { JwtInterceptorInterceptor } from './interceptor/jwt-interceptor.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const appRoutes: Routes = [
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
     CodemirrorModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
