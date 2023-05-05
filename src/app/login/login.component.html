@@ -1,5 +1,5 @@
 <div id="contenedor-login">
-    <form id="formulario" [formGroup]="formLogin">
+    <form id="formulario" [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
         <h4>Bienvenido!</h4>
         <input formControlName="email" type="email" class="txt-form" placeholder="Correo electrónico"  required>
         <p *ngIf="email?.errors?.['email'] || error" class="error">Debe ingresar un correo valido</p>
@@ -10,9 +10,10 @@
             <label for="chk-mostrar" style="color: #FFF; margin-right: 3%;">Mostrar Contraseña</label>
             <input type="checkbox" name="chk-mostrar" (change)="mostrarPassword = !mostrarPassword">
         </div>
+        <p *ngIf="errorLogin" class="error">Credenciales inválidas</p>
 
 
-        <button type="button" id="btn-login" [disabled]="!formLogin.valid" (click)="iniciarSesion()">Iniciar Sesion</button>
+        <button type="submit" id="btn-login" [disabled]="!formLogin.valid" (click)="iniciarSesion()">Iniciar Sesion</button>
         <p id="txt-o">O</p>
         <i id="icono-fb" class="fa-brands fa-facebook">
             <p id="txt-fb">Entrar con Facebook</p>

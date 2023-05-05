@@ -12,6 +12,7 @@ export class LoginComponent {
   formLogin!: FormGroup;
   public error: string = '';
   public mostrarPassword = false;
+  errorLogin: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,10 +40,7 @@ export class LoginComponent {
         },
         error => {
           console.log(error);
-          this.formLogin.controls['email'].setErrors({ 'incorrect': true });
-          this.formLogin.controls['password'].setErrors({ 'incorrect': true });
-          this.error = 'Email or password incorrect';
-          location.reload();
+          this.errorLogin = true;
         }
       )
   }
