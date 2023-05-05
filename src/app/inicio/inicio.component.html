@@ -1,9 +1,17 @@
 <div class="area-trabajo">
   <div class="menu-lateral" >
-      Menu
+    <button class="btn"><i class="fa-solid fa-folder-plus"></i> Nuevo Proyecto</button>
+    <button class="btn"><i class="fa-solid fa-folder-open"></i> Abrir Proyecto</button>
+    <div>
+      <h5 class="acciones">Acciones</h5>
+      <button (click)="generarSalida($event)" class="btn-acciones"><i class="fa-regular fa-circle-play"></i> Ejecutar</button>
+      <button class="btn-acciones"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+      <button class="btn-acciones"><i class="fa-solid fa-download"></i> Descargar</button>
+    </div>
   </div>
   <div class="pantallas">
       <div>
+        <div class="tab">HTML</div>
         <ngx-codemirror
         [options]="{
           lineNumbers: true,
@@ -15,6 +23,7 @@
       ></ngx-codemirror>
     </div>
     <div>
+      <div class="tab">CSS</div>
       <ngx-codemirror
         [options]="{
           lineNumbers: true,
@@ -25,6 +34,7 @@
       ></ngx-codemirror>
     </div>
     <div>
+      <div class="tab">JS</div>
       <ngx-codemirror
         [options]="{
           lineNumbers: true,
@@ -34,9 +44,7 @@
         [(ngModel)]="jsCode"
       ></ngx-codemirror>
     </div>
-  
-    <div>
-      <button (click)="generarSalida($event)">Generar Salida</button>
+    <div style="background-color: #FFF;">
       <iframe class="miIframe" id="salida" src="" frameborder="0">Salida</iframe>
   </div>
 </div>

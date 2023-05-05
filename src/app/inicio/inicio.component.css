@@ -8,14 +8,14 @@
 
 .menu-lateral{
     width: 200px;
-    background-color: rgb(102, 98, 98);
+    background-color: #18191F;
 }
 
 .pantallas {
     display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-columns: 1fr 1fr;
-    background-color: #FFF;
+    background-color: #263238;
     padding-left: 0px;
     width: 1200px;
 }
@@ -29,3 +29,41 @@
     height: 100%;
     overflow: auto;
   }
+
+  .btn {
+    background-color: #18191F;
+    border: none;
+    color: #D5FAFC;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+.acciones {
+    color: #FFC278;
+    font-size: 25px;
+}
+
+.btn-acciones {
+    background-color: #18191F;
+    border: none;
+    color: #FFE3C1;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .tab {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 30px;
+    background-color: #263238; /* Color de fondo de la pestaña */
+    color: #D5FAFC; /* Color del texto de la pestaña */
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    border-top-right-radius: 5px; /* Radio de la esquina superior derecha */
+}
+
