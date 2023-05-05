@@ -1,10 +1,19 @@
 <div id="contenedor-login">
     <form id="formulario" [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
         <h4>Bienvenido!</h4>
-        <input formControlName="email" type="email" class="txt-form" placeholder="Correo electrónico"  required>
+        <div *ngIf="usuarioLogueado">
+            <p class="mensaje-cuenta">Iniciaste sesion como {{tokenInfo.nombre}} {{tokenInfo.apellido}} </p>
+            <div class="mensaje-cuenta ">
+                <p class="continuar" [routerLink]="'/home'">Continuar?</p>
+                <p style="cursor:pointer; text-decoration: underline; " (click)="cerrarSesion()">Cerrar sesión</p>
+            </div>
+            <p style="color:#FFE3C1">Iniciar con otra cuenta:</p>
+        </div>
+        <input formControlName="email" type="email" class="txt-form" placeholder="Correo electrónico" required>
         <p *ngIf="email?.errors?.['email'] || error" class="error">Debe ingresar un correo valido</p>
 
-        <input formControlName="password" type="{{mostrarPassword ? 'text' : 'password'}}" class="txt-form" placeholder="Contraseña" required>
+        <input formControlName="password" type="{{mostrarPassword ? 'text' : 'password'}}" class="txt-form"
+            placeholder="Contraseña" required>
         <div id="contenedor-btn-pass">
             <p *ngIf="password?.errors?.['minlength']" class="error">Debe contener al menos 4 caracteres.</p>
             <label for="chk-mostrar" style="color: #FFF; margin-right: 3%;">Mostrar Contraseña</label>
@@ -13,7 +22,8 @@
         <p *ngIf="errorLogin" class="error">Credenciales inválidas</p>
 
 
-        <button type="submit" id="btn-login" [disabled]="!formLogin.valid" (click)="iniciarSesion()">Iniciar Sesion</button>
+        <button type="submit" id="btn-login" [disabled]="!formLogin.valid" (click)="iniciarSesion()">Iniciar
+            Sesion</button>
         <p id="txt-o">O</p>
         <i id="icono-fb" class="fa-brands fa-facebook">
             <p id="txt-fb">Entrar con Facebook</p>
@@ -22,9 +32,8 @@
             <p id="txt-fb">¿No tienes cuenta? </p>
             <a id="registro" [routerLink]="['/registro']">Registrate</a>
         </div>
-        
+
     </form>
 
-    
-</div>
 
+</div>

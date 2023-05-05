@@ -2,6 +2,18 @@
     color: rgb(253, 186, 186);
 }
 
+.mensaje-cuenta {
+    display: flex;
+    justify-content: space-between;
+    color: #FFE3C1;
+}
+
+.continuar {
+    color: #75E3EA;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 #contenedor-login {
     position: absolute;
     top: 50%;

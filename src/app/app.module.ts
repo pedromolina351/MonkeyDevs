@@ -14,7 +14,10 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { CookieService } from 'ngx-cookie-service';
 import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
+import { UserGuardGuard } from './guards/user-guard.guard';
+import { JwtInterceptorInterceptor } from './interceptor/jwt-interceptor.interceptor';
 
 
 const appRoutes: Routes = [
@@ -22,7 +25,7 @@ const appRoutes: Routes = [
   {path: '', component: LandingComponent},
   {path: 'registro', component: RegistroComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'perfil', component: PerfilComponent}
+  {path: 'perfil', component: PerfilComponent, canActivate: [UserGuardGuard]}
 ];
 
 @NgModule({
@@ -34,7 +37,7 @@ const appRoutes: Routes = [
     InicioComponent,
     PerfilComponent,
     LandingComponent,
-    LoginNavbarComponent
+    LoginNavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,9 +46,9 @@ const appRoutes: Routes = [
     FormsModule,
     CodemirrorModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
