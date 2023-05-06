@@ -46,3 +46,25 @@
     background-image: url('../../assets/img/user.svg');
     background-color: white;
 }
+.custom-dropdown-menu {
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    margin-top: 0.5rem;
+  }
+
+  .my-inline-block {
+    display: inline-block;
+    color: red;
+    font-size: 20px;
+  }
+ .btn-outline-primary{
+    color: #fff;
+ }
+
+ .btn-outline-primary:hover {
+    color: #fff;
+    background-color: #18191F;
+ }  
