@@ -1,85 +1,91 @@
 <div class="area-trabajo">
-  <div class="menu-lateral" >
-    <button class="btn"><i class="fa-solid fa-folder-plus"></i> Nuevo Proyecto</button>
-    <button class="btn"><i class="fa-solid fa-folder-open"></i> Abrir Proyecto</button>
+  <div class="menu-lateral">
+    <button class="btn" (click)="abrirModalProyecto(nuevoProyecto)"><i class="fa-solid fa-folder-plus"></i> Nuevo
+      Proyecto</button>
+    <button class="btn" (click)="abrirModalNuevo(abrirProyecto)"><i class="fa-solid fa-folder-open"></i> Abrir
+      Proyecto</button>
     <div>
       <h5 class="acciones">Acciones</h5>
-      <button (click)="generarSalida($event)" class="btn-acciones"><i class="fa-regular fa-circle-play"></i> Ejecutar</button>
+      <button (click)="generarSalida($event)" class="btn-acciones"><i class="fa-regular fa-circle-play"></i>
+        Ejecutar</button>
       <button class="btn-acciones"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
       <button class="btn-acciones"><i class="fa-solid fa-download"></i> Descargar</button>
     </div>
   </div>
-  <div class="pantallas">
+  <div class="contenedor-central">
+    <p style="color: #D5FAFC" *ngIf="proyectoActual">Proyecto Actual: {{nombreProyectoActual}} - Monkey Devs</p>
+    <div class="pantallas">
       <div>
         <div class="tab">HTML</div>
-        <ngx-codemirror
-        [options]="{
+        <ngx-codemirror [options]="{
           lineNumbers: true,
           theme: 'material',
           mode: 'markdown',
           scrollbarStyle: 'native'
-        }"
-        [(ngModel)]="htmlCode"
-      ></ngx-codemirror>
-    </div>
-    <div>
-      <div class="tab">CSS</div>
-      <ngx-codemirror
-        [options]="{
+        }" [(ngModel)]="htmlCode"></ngx-codemirror>
+      </div>
+      <div>
+        <div class="tab">CSS</div>
+        <ngx-codemirror [options]="{
           lineNumbers: true,
           theme: 'material',
           mode: 'css'
-        }"
-        [(ngModel)]="cssCode"
-      ></ngx-codemirror>
-    </div>
-    <div>
-      <div class="tab">JS</div>
-      <ngx-codemirror
-        [options]="{
+        }" [(ngModel)]="cssCode"></ngx-codemirror>
+      </div>
+      <div>
+        <div class="tab">JS</div>
+        <ngx-codemirror [options]="{
           lineNumbers: true,
           theme: 'material',
           mode: 'javascript'
-        }"
-        [(ngModel)]="jsCode"
-      ></ngx-codemirror>
+        }" [(ngModel)]="jsCode"></ngx-codemirror>
+      </div>
+      <div style="background-color: #FFF;">
+        <iframe class="miIframe" id="salida" src="" frameborder="0">Salida</iframe>
+      </div>
     </div>
-    <div style="background-color: #FFF;">
-      <iframe class="miIframe" id="salida" src="" frameborder="0">Salida</iframe>
   </div>
-</div>
 
 
-<!-- Ventana modal, archivos -->
-<ng-template #content let-modal>
-	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
-		<form>
+  <!-- Ventana modal, archivos -->
+  <ng-template #nuevoProyecto let-modal>
+    <div class="modal-header bg-dark">
+      <h4 class="modal-title" id="modal-basic-title">Guardar Proyecto como:</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body bg-dark">
+      <form>
+        <input [(ngModel)]="nombreNuevo" name="nombreNuevo" class="form-control" type="text" placeholder="Nombre del proyecto">
+        <textarea [(ngModel)]="descripcionNuevo" name="descripcionNuevo" class="form-control" cols="30" rows="10" placeholder="Descripcion"></textarea>
+      </form>
+    </div>
+    <div class="modal-footer bg-dark">
+      <button type="button" class="btn" (click)="guardarProyecto()">Guardar</button>
+      <button type="button" class="btn btn-success" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+  </ng-template>
 
-		</form>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-	</div>
-</ng-template>
+  <ng-template #abrirProyecto let-modal>
+    <div class="modal-header bg-dark">
+      <h4 class="modal-title" id="modal-basic-title">Abrir Proyecto</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body bg-dark">
+      <div class="container">
+        <div class="row form-modal">
+          <p *ngIf="proyectos.length === 0">Actualmente no tienes proyectos, ve al apartado "Nuevo Proyecto" para crear
+            uno</p>
+          <div *ngFor="let proyecto of proyectos" class="col-4 center-folder">
+            <button type="button" (click)="seleccionarProyecto(proyecto)">
+              <fa-icon [icon]="faFolder" class="icon-size"></fa-icon>
+              <p>{{proyecto.nombreProyecto}}</p>
+            </button>
+          </div>
+        </div>
+      </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
+    <div class="modal-footer bg-dark">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+  </ng-template>

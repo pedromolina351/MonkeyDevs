@@ -19,6 +19,7 @@ import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
 import { UserGuardGuard } from './guards/user-guard.guard';
 import { JwtInterceptorInterceptor } from './interceptor/jwt-interceptor.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 const appRoutes: Routes = [
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    FontAwesomeModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

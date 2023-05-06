@@ -8,6 +8,11 @@ import { Observable } from 'rxjs';
 export class ProyectoService {
 
   constructor(private httpClient: HttpClient) { }
+
+  obtenerProyectos(id:any){
+    return this.httpClient.get(`http://localhost:3000/proyecto/${id}/proyectos`,{});
+  }
+
   crearProyecto(data:any):Observable<any>{
     return this.httpClient.post(`http://localhost:3000/proyecto/`, 
     {
