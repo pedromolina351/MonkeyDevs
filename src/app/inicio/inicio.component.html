@@ -1,19 +1,25 @@
 <div class="area-trabajo">
   <div class="menu-lateral">
-    <button class="btn" (click)="abrirModalProyecto(nuevoProyecto)"><i class="fa-solid fa-folder-plus"></i> Nuevo
-      Proyecto</button>
+    <button class="btn" (click)="abrirModalProyecto(nuevoProyecto)">
+      <i class="fa-solid fa-folder-plus"></i>
+      Guardar proyecto
+    </button>
     <button class="btn" (click)="abrirModalNuevo(abrirProyecto)"><i class="fa-solid fa-folder-open"></i> Abrir
       Proyecto</button>
     <div>
       <h5 class="acciones">Acciones</h5>
       <button (click)="generarSalida($event)" class="btn-acciones"><i class="fa-regular fa-circle-play"></i>
         Ejecutar</button>
-      <button class="btn-acciones"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+      <button class="btn-acciones" [disabled]="!proyectoActual" [ngClass]="{'boton-deshabilitado': !proyectoActual}"
+        (click)="guardarCambiosProyecto()">
+        <i class="fa-solid fa-floppy-disk"></i>Guardar
+      </button>
       <button class="btn-acciones"><i class="fa-solid fa-download"></i> Descargar</button>
     </div>
   </div>
   <div class="contenedor-central">
-    <p style="color: #D5FAFC" *ngIf="proyectoActual">Proyecto Actual: {{nombreProyectoActual}} - Monkey Devs</p>
+    <p style="color: #D5FAFC" *ngIf="proyectoActual">Proyecto Actual: {{nombreProyectoActual}} - Monkey Devs<span
+        *ngIf="guardado"> - Guardando</span></p>
     <div class="pantallas">
       <div>
         <div class="tab">HTML</div>
@@ -51,17 +57,22 @@
   <ng-template #nuevoProyecto let-modal>
     <div class="modal-header bg-dark">
       <h4 class="modal-title" id="modal-basic-title">Guardar Proyecto como:</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      <button type="button" class="btn-close" aria-label="Close" (click)="cerrarModal()"></button>
     </div>
     <div class="modal-body bg-dark">
       <form>
-        <input [(ngModel)]="nombreNuevo" name="nombreNuevo" class="form-control" type="text" placeholder="Nombre del proyecto">
-        <textarea [(ngModel)]="descripcionNuevo" name="descripcionNuevo" class="form-control" cols="30" rows="10" placeholder="Descripcion"></textarea>
+        <p *ngIf="vacio" class="error">Debe definir un nombre y una descripcion para el proyecto</p>
+        <p *ngIf="limite" class="error">¡Su cuenta ha alcanzado el límite de proyectos permitidos! para crear uno nuevo,
+          actualice su plan o elimine alguno de los proyectos anteriores.</p>
+        <input [(ngModel)]="nombreNuevo" name="nombreNuevo" class="form-control" type="text"
+          placeholder="Nombre del proyecto">
+        <textarea [(ngModel)]="descripcionNuevo" name="descripcionNuevo" class="form-control" cols="30" rows="10"
+          placeholder="Descripcion"></textarea>
       </form>
     </div>
     <div class="modal-footer bg-dark">
       <button type="button" class="btn" (click)="guardarProyecto()">Guardar</button>
-      <button type="button" class="btn btn-success" (click)="modal.close('Save click')">Cerrar</button>
+      <button type="button" class="btn btn-success" (click)="cerrarModal()">Cerrar</button>
     </div>
   </ng-template>
 
@@ -80,6 +91,9 @@
               <fa-icon [icon]="faFolder" class="icon-size"></fa-icon>
               <p>{{proyecto.nombreProyecto}}</p>
             </button>
+            <button type="button" (click)="abrirConfirmarEliminacion(confirmarEliminacion,proyecto._id)">
+              <fa-icon [icon]="faTrashCan" class="icon-trash"></fa-icon>
+            </button>
           </div>
         </div>
       </div>
@@ -87,5 +101,18 @@
     </div>
     <div class="modal-footer bg-dark">
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #confirmarEliminacion let-modal>
+    <div class="modal-header bg-dark">
+      <h4 class="modal-title">Confirmar eliminación</h4>
+    </div>
+    <div class="modal-body bg-dark" style="color:white">
+      <p>¿Realmente desea eliminar el proyecto?</p>
+    </div>
+    <div class="modal-footer bg-dark">
+      <button type="button" class="btn btn-danger" (click)="eliminarProyecto(); modal.close('Save click')">Eliminar</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
     </div>
   </ng-template>

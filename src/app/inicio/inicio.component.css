@@ -1,6 +1,15 @@
 .area-trabajo {
     display: flex;
-
+}
+.icon-trash {
+    color: rgb(253, 186, 186);
+}
+.boton-deshabilitado {
+    color: #a69581!important;
+    cursor: default!important;
+}
+.error {
+    color: rgb(253, 186, 186);
 }
 .center-folder{
     display: flex;

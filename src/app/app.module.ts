@@ -18,7 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LoginNavbarComponent } from './login-navbar/login-navbar.component';
 import { UserGuardGuard } from './guards/user-guard.guard';
 import { JwtInterceptorInterceptor } from './interceptor/jwt-interceptor.interceptor';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
@@ -52,7 +52,7 @@ const appRoutes: Routes = [
     NgbModule,
     FontAwesomeModule,
   ],
-  providers: [CookieService],
+  providers: [CookieService, NgbModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
