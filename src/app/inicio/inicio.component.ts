@@ -3,6 +3,7 @@ import { ProyectoService } from '../services/proyecto.service';
 import { AuthService } from '../services/auth.services';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faFolder, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-inicio',
@@ -20,13 +21,14 @@ export class InicioComponent {
   htmlCode = '';
   cssCode = '';
   jsCode = '';
+  archivoCompleto: any;
 
   //Cargar proyecto
   proyectos: any;
-  datosProyectoActual:any;
+  datosProyectoActual: any;
   proyectoActual: boolean = false;
   nombreProyectoActual = '';
-  guardado:boolean = false;
+  guardado: boolean = false;
 
   //Nuevo proyecto
   nombreNuevo = '';
@@ -85,7 +87,7 @@ export class InicioComponent {
       centered: false
     });
   }
-  abrirConfirmarEliminacion(modal:any,id:string){
+  abrirConfirmarEliminacion(modal: any, id: string) {
     this.idProyectoEliminado = id;
     this.modalService.open(modal, {
       size: 'xs',
@@ -191,27 +193,49 @@ export class InicioComponent {
       usuario: this.datosProyectoActual.usuario
     }
     this.proyectoService.actualizarProyecto(data)
-    .subscribe(
-      res => {
-        console.log(res);
-        this.cargarProyectos();
-        this.guardado = true;
-        this.ocultarGuardado();
-      }, error => {
-        console.log(error);
-      })
+      .subscribe(
+        res => {
+          console.log(res);
+          this.cargarProyectos();
+          this.guardado = true;
+          this.ocultarGuardado();
+        }, error => {
+          console.log(error);
+        })
   }
 
   //Eliminar un proyecto
-  eliminarProyecto(){
+  eliminarProyecto() {
     this.proyectoService.eliminarProyecto(this.idProyectoEliminado)
-    .subscribe(
-      res => {
-        console.log(res);
-        this.cargarProyectos();
-      }, error => {
-        console.log(error);
-      });
+      .subscribe(
+        res => {
+          console.log(res);
+          this.cargarProyectos();
+          this.proyectoActual = false;
+        }, error => {
+          console.log(error);
+        });
+  }
+
+  descargarArchivos(nombre: string) {
+    const head = `
+    <head>
+      <style>${this.cssCode}</style>
+      <script>${this.jsCode}</script>
+    </head>
+  `;
+
+    const body = `
+    <body>
+      ${this.htmlCode}
+    </body>
+  `;
+
+    this.archivoCompleto = '<html>' + head + body + '</html>';
+    console.log(this.archivoCompleto);
+    const blob = new Blob([this.archivoCompleto], { type: 'text/html;charset=utf-8' });
+    saveAs(blob, nombre + '.html');
+    console.log(this.archivoCompleto);
   }
 
 }
