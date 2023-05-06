@@ -1,23 +1,26 @@
-<div class=".contenedor" >
-    <section class="izquierda">
-        <div class="contenido">
-            <h1 class="titulo" >Editor Online</h1>
-            <h2 class="parrafo" >Programa el doble de rápido </h2>
-            <h2 class="parrafo" >con 4 pulgares como un Monkey</h2>
-            <button [routerLink]="['/login']" class="btn-empezar">Empezar</button>
-        </div>
-        
-    </section>
-    <section>
-        <div>
-            <img class="wobble-vertical-right" src="../../assets/img/html-imagen.png" alt="">
-        </div>
-        <div>
-            <img class="wobble-vertical-right" src="../../assets/img/css-imagen.png" alt="">
-        </div>
-        <div>
-            <img class="wobble-vertical-right" src="../../assets/img/js-imagen.png" alt="">
-        </div>
-    </section>
+<div id="contenedor">
+    <div class="izquierda">
+      <div class="contenido">
+        <h1 class="titulo">Editor Online</h1>
+        <h2 class="parrafo">Programa el doble de rápido </h2>
+        <h2 class="parrafo">con 4 pulgares como un Monkey</h2>
+        <!-- <button [routerLink]="['/login']" class="btn-empezar">Empezar</button> -->
+      </div>
+    </div>
+    <div class="derecha">
+      <ngb-carousel>
+        <ng-template *ngFor="let imagen of imagenes" ngbSlide>
+          <div class="picsum-img-wrapper" style="text-align: center;">
+            <img [src]="imagen.img" alt="Random first slide" />
+          </div>
+          <div class="carousel-caption">
+            <h5 style="font-size:30px;" >{{imagen.desc}}</h5>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+    <h1 class="titulo">Planes</h1>
+    <div class="picsum-img-wrapper" >
+        <img src="../../assets/img/ImagenPlanesMD.png" alt="">
+    </div>
 </div>
-

@@ -1,5 +1,4 @@
-
-<div class="div-contenido" >
+<!-- <div class="div-contenido" >
     <div class="div-opciones" >
         <div class="opc-perfil">
             <i class="fa-regular fa-user centro" style="color: #ffc278;"></i>
@@ -38,5 +37,57 @@
             </form>
         </div>
     </div>
-    
-</div>
+</div> -->
+
+  <header class="py-5 bg-image-full" style="background-image: url('https://media.istockphoto.com/id/1337329904/es/foto/imagen-de-fondo-de-cifrado-de-codificaci%C3%B3n-digital-de-seguridad-cibern%C3%A9tica.jpg?b=1&s=170667a&w=0&k=20&c=Pzg_3mgl0Y5U9MDOLXAimfLfzUqIg_bJU-px501wuIA=')">
+    <div class="text-center my-5">
+        <img class="img-fluid rounded-circle mx-auto mb-4" src="../../assets/img/Jeorge-monkey.jpg" alt="..." />
+        <h1 class="text-white fs-3 fw-bolder">{{nombre}} {{apellido}}</h1>
+        <p class="text-white-50 mb-0">{{nombreUsuario}}</p>
+      </div>
+  </header>
+
+  <section class="dos-colunmas">
+    <div id="div-1" class="container my-5">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="lbl-form block mb-2">Nombre: {{nombre}}</p>
+            <p class="lbl-form block mb-2">Apellido: {{apellido}}</p>
+          </div>
+          <div class="col-md-6">
+            <p class="lbl-form block mb-2">Nombre de usuario: {{nombreUsuario}}</p>
+            <p class="lbl-form block mb-2">Correo electrónico: {{correoElectronico}}</p>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="toggleDiv()">Editar</button>
+    </div>
+    <div id="div-2"style="display:none" class="container my-5">
+        <form>
+            <div>
+                <i (click)="closeDiv()" class="fa-solid fa-rectangle-xmark" style="color: red" ></i>
+            </div>
+            
+            <div class="form-group">
+              <label class="lbl-form block mb-2">Nombre</label>
+              <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="cambiar nombre">
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="lbl-form block mb-2">Apellido</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="cambiar apellido">
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="lbl-form block mb-2">Nombre de Usuario</label>
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="cambiar nombre de usuario">
+            </div>
+            <br>
+            <div class="form-group">
+                <label class="lbl-form block mb-2">Correo Eléctronico</label>
+                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="cambiar correo eléctronico">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+  </section>
