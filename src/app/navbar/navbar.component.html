@@ -1,9 +1,22 @@
 <div class="navbar">
-    <img [routerLink]="['/']" id="img-logo" src="../../assets/img/logoMonkey.svg" alt="">
+    <img [routerLink]="['/home']" id="img-logo" src="../../assets/img/logoMonkey.svg" alt="">
     
     <div id="contenedor-botones">
         <button id="btn-login">Archivos</button>
         <button [routerLink]="['/perfil']" id="btn-perfil">Perfil</button>
+    </div>
+
+    <div id="contenedor-botones">
+        <!-- <button [routerLink]="['/perfil']" id="btn-perfil">{{nombre}}</button> -->
+        <div ngbDropdown class="d-inline-block">
+			<button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                <i class="fa-solid fa-user"></i>
+				{{nombre}}
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+				<button [routerLink]="['/perfil']" ngbDropdownItem>Perfil</button>
+				<button ngbDropdownItem (click)="cerrarSesion()">Cerrar sesión</button>
+		</div>
     </div>
     
 </div>
