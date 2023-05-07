@@ -30,4 +30,23 @@ export class UsuarioService {
       plan: data.plan
     });
   }
+
+  //Encontrar datos del usuario por id
+  obtenerUsuario(id:any):Observable<any>{
+    return this.httpClient.get(`http://localhost:3000/usuario/${id}`,{});
+  }
+
+  //Actualizar datos de un usuario
+  actualizarUsuario(data:any):Observable<any>{
+    return this.httpClient.put(`http://localhost:3000/usuario/update?id=${data.idUsuario}`,
+    {
+      idUsuario: data.idUsuario,
+      nombre: data.nombre,
+      apellido: data.apellido,
+      usuario: data.usuario,
+      correo: data.correo,
+      password: data.password,
+      plan: data.plan
+    })
+  }
 }

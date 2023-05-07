@@ -1,4 +1,9 @@
-
+.info-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .div-contenido {
     display: flex;
     margin-top: 50px;
