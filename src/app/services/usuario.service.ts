@@ -11,7 +11,7 @@ export class UsuarioService {
   
   //Funcion Login
   loginUsuario(data:any):Observable<any>{
-    return this.httpClient.post('http://localhost:3000/usuario/login', 
+    return this.httpClient.post('https://monkeydevs-backend-production.up.railway.app/usuario/login', 
     {
       correo: data.correo,
       password: data.password
@@ -20,7 +20,7 @@ export class UsuarioService {
 
   //Funcion Registrarse
   registrarse(data:any):Observable<any>{
-    return this.httpClient.post('http://localhost:3000/usuario/registrar', 
+    return this.httpClient.post('https://monkeydevs-backend-production.up.railway.app/usuario/registrar', 
     {
       nombre: data.nombre,
       apellido: data.apellido,
@@ -33,12 +33,12 @@ export class UsuarioService {
 
   //Encontrar datos del usuario por id
   obtenerUsuario(id:any):Observable<any>{
-    return this.httpClient.get(`http://localhost:3000/usuario/${id}`,{});
+    return this.httpClient.get(`https://monkeydevs-backend-production.up.railway.app/usuario/${id}`,{});
   }
 
   //Actualizar datos de un usuario
   actualizarUsuario(data:any):Observable<any>{
-    return this.httpClient.put(`http://localhost:3000/usuario/update?id=${data.idUsuario}`,
+    return this.httpClient.put(`https://monkeydevs-backend-production.up.railway.app/usuario/update?id=${data.idUsuario}`,
     {
       idUsuario: data.idUsuario,
       nombre: data.nombre,

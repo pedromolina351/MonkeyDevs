@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.services';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,12 +10,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  //nombreTokens = this.authService.getUserData();
   nombre = '';
+  
+
 
   constructor(
     private authService: AuthService,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private usuarioService: UsuarioService
     ){}
 
   ngOnInit(): void {
