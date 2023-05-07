@@ -3,6 +3,7 @@ import { ProyectoService } from '../services/proyecto.service';
 import { AuthService } from '../services/auth.services';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faFolder, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
 import { saveAs } from 'file-saver';
 
 @Component({
@@ -13,9 +14,13 @@ import { saveAs } from 'file-saver';
 export class InicioComponent {
   @ViewChild('nuevoProyecto') nuevoProyecto!: TemplateRef<any>;
 
+  //VARIABLE PARA SABER SI EL PROYECTO ACTUAL ES COLABORATIVO O NO
+  tipoProyectoActual = '';
+
   //Fontawesome icons
   faFolder = faFolder;
   faTrashCan = faTrashCan;
+  faGear = faGear;
 
   //Archivos
   htmlCode = '';
@@ -29,6 +34,16 @@ export class InicioComponent {
   proyectoActual: boolean = false;
   nombreProyectoActual = '';
   guardado: boolean = false;
+
+  //Proyecto Cooperativo
+  nombreNuevoCooperativo = '';
+  descripcionNuevoCooperativo = '';
+  cooperativos: any[] = [];
+  correoUsuario = '';
+  limiteCooperativo: boolean = false;
+  cooperativoActual: any;
+  usuarioExistente: boolean = false;
+  limiteCrearCooperativo: boolean = false;
 
   //Nuevo proyecto
   nombreNuevo = '';
@@ -47,6 +62,7 @@ export class InicioComponent {
 
   ngOnInit(): void {
     this.cargarProyectos();
+    this.cargarCooperativos();
   }
 
   //Función que compila el código y lo muestra en la pantalla de salida
@@ -94,10 +110,24 @@ export class InicioComponent {
       centered: false
     });
   }
+  abrirNuevoCooperativo(modal: any) {
+    this.modalService.open(modal, {
+      size: 'xs',
+      centered: false
+    });
+  }
+  abrirAgregarUsuario(modal: any, cooperativo: any) {
+    this.cooperativoActual = cooperativo;
+    this.modalService.open(modal, {
+      size: 'xs',
+      centered: false
+    });
+  }
   //----------------------------
 
   //Al hacer click en un proyecto, traer toda su informacion y mostrarla
-  seleccionarProyecto(proyecto: any) {
+  seleccionarProyectoNormal(proyecto: any) {
+    this.tipoProyectoActual = 'normal';
     this.datosProyectoActual = proyecto;
     this.proyectoActual = true;
     this.nombreProyectoActual = proyecto.nombreProyecto;
@@ -105,6 +135,19 @@ export class InicioComponent {
     this.cssCode = proyecto.archivoCSS;
     this.jsCode = proyecto.archivoJS;
     this.modalService.dismissAll();
+    console.log(this.tipoProyectoActual);
+  }
+
+  seleccionarProyectoCooperativo(proyecto: any) {
+    this.tipoProyectoActual = 'cooperativo';
+    this.cooperativoActual = proyecto;
+    this.datosProyectoActual = proyecto;
+    this.proyectoActual = true;
+    this.nombreProyectoActual = proyecto.nombreProyecto;
+    this.htmlCode = proyecto.archivoHTML;
+    this.cssCode = proyecto.archivoCSS;
+    this.jsCode = proyecto.archivoJS;
+    console.log(this.tipoProyectoActual);
   }
 
   //Cargar todos los proyectos del usuario logueado
@@ -123,6 +166,7 @@ export class InicioComponent {
 
   //Funcion para guardar proyecto
   guardarProyecto() {
+
     const tokenInfo = this.authService.getUserData();
     const data = {
       nombreProyecto: this.nombreNuevo,
@@ -159,6 +203,7 @@ export class InicioComponent {
       this.vacio = true;
       console.log('Intento guardar un proyecto sin nombre')
     }
+
   }
   //Limpiar inputs de la ventana modal #nuevoProyecto
   limpiarInputs() {
@@ -183,25 +228,47 @@ export class InicioComponent {
 
   //Guardar los cambios hechos en un proyecto
   guardarCambiosProyecto() {
-    const data = {
-      id: this.datosProyectoActual._id,
-      nombreProyecto: this.nombreProyectoActual,
-      descripcion: this.datosProyectoActual.descripcion,
-      archivoHTML: this.htmlCode,
-      archivoJS: this.jsCode,
-      archivoCSS: this.cssCode,
-      usuario: this.datosProyectoActual.usuario
-    }
-    this.proyectoService.actualizarProyecto(data)
-      .subscribe(
+    if (this.tipoProyectoActual === 'normal') {
+      const data = {
+        id: this.datosProyectoActual._id,
+        nombreProyecto: this.nombreProyectoActual,
+        descripcion: this.datosProyectoActual.descripcion,
+        archivoHTML: this.htmlCode,
+        archivoJS: this.jsCode,
+        archivoCSS: this.cssCode,
+        usuario: this.datosProyectoActual.usuario
+      }
+      this.proyectoService.actualizarProyecto(data)
+        .subscribe(
+          res => {
+            console.log(res);
+            this.cargarProyectos();
+            this.guardado = true;
+            this.ocultarGuardado();
+          }, error => {
+            console.log(error);
+          });
+    } else if (this.tipoProyectoActual === 'cooperativo') {
+      const data = {
+        idCooperativo: this.cooperativoActual._id,
+        nombreProyecto: this.cooperativoActual.nombreProyecto,
+        descripcion: this.cooperativoActual.descripcion,
+        archivoHTML: this.htmlCode,
+        archivoJS: this.jsCode,
+        archivoCSS: this.cssCode,
+        usuarios: this.cooperativoActual.usuarios
+      }
+      this.proyectoService.actualizarCooperativo(data).subscribe(
         res => {
           console.log(res);
-          this.cargarProyectos();
           this.guardado = true;
           this.ocultarGuardado();
+          this.cargarCooperativos();
         }, error => {
           console.log(error);
-        })
+        }
+      )
+    }
   }
 
   //Eliminar un proyecto
@@ -236,6 +303,78 @@ export class InicioComponent {
     const blob = new Blob([this.archivoCompleto], { type: 'text/html;charset=utf-8' });
     saveAs(blob, nombre + '.html');
     console.log(this.archivoCompleto);
+  }
+
+
+  cargarCooperativos() {
+    const tokenInfo = this.authService.getUserData();
+    const idUser = tokenInfo.id;
+    this.proyectoService.obtenerCooperativos(idUser).subscribe(
+      (res: any) => {
+        this.cooperativos = res.cooperativos;
+        console.log(this.cooperativos);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  crearCooperativo() {
+    const tokenInfo = this.authService.getUserData();
+    const idUser = tokenInfo.id;
+    const data = {
+      nombreProyecto: this.nombreNuevoCooperativo,
+      descripcion: this.descripcionNuevoCooperativo,
+      archivoHTML: this.htmlCode,
+      archivoJS: this.jsCode,
+      archivoCSS: this.cssCode,
+      usuarios: [idUser],
+      idUsuario: idUser
+    }
+    this.proyectoService.crearCooperativo(data)
+      .subscribe(
+        res => {
+          console.log(res);
+          this.cargarCooperativos();
+          this.limiteCrearCooperativo = false;
+        }, error => {
+          console.log(error);
+          if (error.error.message === 'PROJECT_LIMIT') {
+            this.limiteCrearCooperativo = true;
+          }
+        });
+  }
+
+  agregarUsuarioCooperativo() {
+    const data = {
+      email: this.correoUsuario,
+      cooperativoId: this.cooperativoActual._id
+    }
+    console.log(data);
+    this.proyectoService.agregarUsuario(data).subscribe(
+      res => {
+        console.log(res);
+        this.limiteCooperativo = false;
+        this.usuarioExistente = false;
+      }, error => {
+        console.log(error);
+        if (error.error.message === 'PROJECT_LIMIT') {
+          this.limiteCooperativo = true;
+        }
+        if (error.error.message === 'REPETIDO') {
+          this.usuarioExistente = true;
+        }
+      }
+    )
+  }
+
+  cerrarModalCooperativo() {
+    this.correoUsuario = '';
+    this.nombreNuevoCooperativo = '';
+    this.limiteCooperativo = true;
+    this.usuarioExistente = true;
+    this.descripcionNuevoCooperativo = '';
   }
 
 }

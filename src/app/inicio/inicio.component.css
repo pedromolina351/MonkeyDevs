@@ -31,7 +31,7 @@
 }
 
 .menu-lateral {
-    width: 15%;
+    width: 20%;
     background-color: #18191F;
 }
 
@@ -92,4 +92,13 @@
     font-weight: bold;
     border-top-right-radius: 5px;
     /* Radio de la esquina superior derecha */
+}
+.div-cooperativo {
+    background-color: gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.gear-icon {
+    cursor: pointer;
 }

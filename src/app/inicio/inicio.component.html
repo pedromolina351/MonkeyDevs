@@ -14,12 +14,17 @@
         (click)="guardarCambiosProyecto()">
         <i class="fa-solid fa-floppy-disk"></i>Guardar
       </button>
-      <button class="btn-acciones" (click)="descargarArchivos('nombre')"><i class="fa-solid fa-download"></i> Descargar</button>
+      <button class="btn-acciones" (click)="descargarArchivos('nombre')"><i class="fa-solid fa-download"></i>
+        Descargar</button>
       <h5 class="acciones">Cooperativo <i class="fa-solid fa-users"></i></h5>
-      <button class="btn-acciones"><i class="fa-solid fa-plus"></i>
+      <button class="btn-acciones" (click)="abrirNuevoCooperativo(nuevoCooperativo)"><i class="fa-solid fa-plus"></i>
         Nuevo Cooperativo</button>
-      <button class="btn-acciones"><i class="fa-regular fa-folder-open"></i>
-        Abrir Cooperativo</button>
+      <div *ngFor="let cooperativo of cooperativos" class="div-cooperativo mt-1 mb-1">
+        <button class="btn-acciones" style="background-color: gray;" (click)="seleccionarProyectoCooperativo(cooperativo)"><i
+            class="fa-regular fa-folder-open"></i>
+          {{cooperativo.nombreProyecto}} </button>
+        <button (click)="abrirAgregarUsuario(modalAgregarUsuario, cooperativo)"><fa-icon class="gear-icon mr-2" [icon]="faGear"></fa-icon></button>
+      </div>
     </div>
   </div>
   <div class="contenedor-central">
@@ -92,7 +97,7 @@
           <p *ngIf="proyectos.length === 0">Actualmente no tienes proyectos, ve al apartado "Nuevo Proyecto" para crear
             uno</p>
           <div *ngFor="let proyecto of proyectos" class="col-4 center-folder">
-            <button type="button" (click)="seleccionarProyecto(proyecto)">
+            <button type="button" (click)="seleccionarProyectoNormal(proyecto)">
               <fa-icon [icon]="faFolder" class="icon-size"></fa-icon>
               <p>{{proyecto.nombreProyecto}}</p>
             </button>
@@ -117,7 +122,44 @@
       <p>¿Realmente desea eliminar el proyecto?</p>
     </div>
     <div class="modal-footer bg-dark">
-      <button type="button" class="btn btn-danger" (click)="eliminarProyecto(); modal.close('Save click')">Eliminar</button>
+      <button type="button" class="btn btn-danger"
+        (click)="eliminarProyecto(); modal.close('Save click')">Eliminar</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #nuevoCooperativo let-modal>
+    <div class="modal-header bg-dark">
+      <h4 class="modal-title">Proyecto Cooperativo</h4>
+    </div>
+    <div class="modal-body bg-dark" style="color:white">
+      <input [(ngModel)]="nombreNuevoCooperativo" name="nombreNuevoCooperativo" class="form-control mb-2" type="text"
+        placeholder="Nombre del proyecto">
+      <textarea [(ngModel)]="descripcionNuevoCooperativo" name="descripcionNuevoCooperativo" class="form-control"
+        type="text" placeholder="Descripcion"></textarea>
+        <p class="error" *ngIf="limiteCrearCooperativo">El usuario no puede unirse al proyecto porque alcanzó el límite de proyectos colaborativos</p>
+    </div>
+    <div class="modal-footer bg-dark">
+      <button type="button" class="btn btn-danger" (click)="crearCooperativo()"
+        [disabled]="nombreNuevoCooperativo === '' || descripcionNuevoCooperativo === ''">Crear</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #modalAgregarUsuario let-modal>
+    <div class="modal-header bg-dark">
+      <h4 class="modal-title">Compartir proyecto</h4>
+    </div>
+    <div class="modal-body bg-dark" style="color:white">
+      <p style="color: white;">Para agregar un usuario al proyecto ingresa su correo</p>
+      <input [(ngModel)]="correoUsuario" name="correoUsuario" class="form-control mb-2" type="email"
+        placeholder="Correo del usuario">
+        <p class="error" *ngIf="limiteCooperativo">El usuario no puede unirse al proyecto porque alcanzó el límite de proyectos colaborativos</p>
+        <p class="error" *ngIf="usuarioExistente">El usuario ya está agregado al proyecto seleccionado</p>
+    </div>
+    <div class="modal-footer bg-dark">
+      <button type="button" class="btn btn-danger" (click)="agregarUsuarioCooperativo()"
+        [disabled]="correoUsuario === ''">Agregar</button>
       <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
     </div>
   </ng-template>
