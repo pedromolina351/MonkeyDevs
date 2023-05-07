@@ -338,12 +338,33 @@ export class InicioComponent {
           console.log(res);
           this.cargarCooperativos();
           this.limiteCrearCooperativo = false;
+          this.modalService.dismissAll();
+          this.htmlCode = '';
+          this.cssCode = '';
+          this.jsCode = '';
         }, error => {
           console.log(error);
           if (error.error.message === 'PROJECT_LIMIT') {
             this.limiteCrearCooperativo = true;
           }
         });
+  }
+
+  limpiar() {
+    this.nombreNuevoCooperativo = '';
+    this.descripcionNuevoCooperativo = '';
+    this.limiteCrearCooperativo = false;
+  }
+
+  limpiarEliminar(){
+    this.htmlCode = '';
+    this.cssCode = '';
+    this.jsCode = '';
+  }
+  limpiarCorreo(){
+    this.correoUsuario = '';
+    this.limiteCooperativo = false;
+    this.usuarioExistente = false;
   }
 
   agregarUsuarioCooperativo() {

@@ -123,7 +123,7 @@
     </div>
     <div class="modal-footer bg-dark">
       <button type="button" class="btn btn-danger"
-        (click)="eliminarProyecto(); modal.close('Save click')">Eliminar</button>
+        (click)="eliminarProyecto(); modal.close('Save click'); limpiarEliminar()">Eliminar</button>
       <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
     </div>
   </ng-template>
@@ -137,12 +137,12 @@
         placeholder="Nombre del proyecto">
       <textarea [(ngModel)]="descripcionNuevoCooperativo" name="descripcionNuevoCooperativo" class="form-control"
         type="text" placeholder="Descripcion"></textarea>
-        <p class="error" *ngIf="limiteCrearCooperativo">El usuario no puede unirse al proyecto porque alcanzó el límite de proyectos colaborativos</p>
+        <p class="error" *ngIf="limiteCrearCooperativo">No puede crear el proyecto, ya alcanzó el límite de proyectos colaborativos</p>
     </div>
     <div class="modal-footer bg-dark">
       <button type="button" class="btn btn-danger" (click)="crearCooperativo()"
         [disabled]="nombreNuevoCooperativo === '' || descripcionNuevoCooperativo === ''">Crear</button>
-      <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Save click'); limpiar()">Cancelar</button>
     </div>
   </ng-template>
 
@@ -158,8 +158,8 @@
         <p class="error" *ngIf="usuarioExistente">El usuario ya está agregado al proyecto seleccionado</p>
     </div>
     <div class="modal-footer bg-dark">
-      <button type="button" class="btn btn-danger" (click)="agregarUsuarioCooperativo()"
+      <button type="button" class="btn btn-danger" (click)="agregarUsuarioCooperativo(); "
         [disabled]="correoUsuario === ''">Agregar</button>
-      <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancelar</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Save click'); limpiarCorreo()">Cancelar</button>
     </div>
   </ng-template>
